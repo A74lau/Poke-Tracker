@@ -11,7 +11,7 @@
             <div th:each="set : ${sets}" class="pokemon-card">
                 <a th:href="@{/set/{setId}(setId=${set.id})}" class="text-decoration-none">
                     <div class="card set-card">
-                        <img th:if="${set.logo}" th:src="${set.logo}" class="card-img-top p-3" th:alt="${set.name}">
+                        <img th:if="${set.symbol}" th:src="${set.symbol}" class="card-img-top p-3" th:alt="${set.name}">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${set.name}">Set Name</h5>
                             <p class="card-text" th:text="'Cards: ' + ${set.cardCount}">Card Count</p>

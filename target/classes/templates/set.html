@@ -6,10 +6,9 @@
 <body>
     <div th:fragment="content">
         <div class="text-center mb-4">
-            <img th:if="${set.logo}" th:src="${set.logo}" style="max-height: 100px;" th:alt="${set.name}">
+            <img th:if="${set.symbol}" th:src="${set.symbol}" style="max-height: 100px;" th:alt="${set.name}">
             <h1 th:text="${set.name}">Set Name</h1>
             <p class="text-muted">
-                <span th:text="'Released: ' + ${set.releaseDate}">Release Date</span> |
                 <span th:text="'Total Cards: ' + ${set.cardCount}">Card Count</span>
             </p>
         </div>

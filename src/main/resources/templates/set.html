@@ -17,7 +17,7 @@
             <div th:each="card : ${set.cards}" class="pokemon-card">
                 <a th:href="@{/card/{setId}/{cardNumber}(setId=${set.id},cardNumber=${card.localId})}" class="text-decoration-none">
                     <div class="card">
-                        <img th:if="${card.images}" th:src="${card.images.small}" class="card-img-top" th:alt="${card.name}">
+                        <img th:if="${card.image}" th:src="${card.image}" class="card-img-top" th:alt="${card.name}">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${card.name}">Card Name</h5>
                             <p class="card-text">
