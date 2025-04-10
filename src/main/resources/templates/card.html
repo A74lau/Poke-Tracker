@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
+<head>
+    <title th:text="${card.name + ' - Pokemon Cards'}">Card Name - Pokemon Cards</title>
+</head>
+<body>
+    <div th:fragment="content">
+        <div class="row">
+            <div class="col-md-6">
+                <img th:if="${card.images}" th:src="${card.images.large}" class="img-fluid rounded" th:alt="${card.name}">
+            </div>
+            <div class="col-md-6">
+                <h1 th:text="${card.name}">Card Name</h1>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Card Details</h5>
+                        <dl class="row">
+                            <dt class="col-sm-4">Number</dt>
+                            <dd class="col-sm-8" th:text="${card.localId}">Card Number</dd>
+                            
+                            <dt class="col-sm-4">Rarity</dt>
+                            <dd class="col-sm-8" th:text="${card.rarity}">Rarity</dd>
+                            
+                            <dt class="col-sm-4" th:if="${card.hp}">HP</dt>
+                            <dd class="col-sm-8" th:if="${card.hp}" th:text="${card.hp}">HP</dd>
+                            
+                            <dt class="col-sm-4" th:if="${card.types}">Types</dt>
+                            <dd class="col-sm-8" th:if="${card.types}" th:text="${#strings.listJoin(card.types, ', ')}">Types</dd>
+                            
+                            <dt class="col-sm-4" th:if="${card.illustrator}">Illustrator</dt>
+                            <dd class="col-sm-8" th:if="${card.illustrator}" th:text="${card.illustrator}">Illustrator</dd>
+                        </dl>
+                    </div>
+                </div>
+                
+                <div class="card mt-3" th:if="${card.attacks}">
+                    <div class="card-body">
+                        <h5 class="card-title">Attacks</h5>
+                        <div th:each="attack : ${card.attacks}" class="mb-3">
+                            <h6 th:text="${attack.name}">Attack Name</h6>
+                            <p class="mb-1">
+                                <small class="text-muted" th:text="'Damage: ' + ${attack.damage}">Damage</small>
+                            </p>
+                            <p th:text="${attack.effect}">Effect</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

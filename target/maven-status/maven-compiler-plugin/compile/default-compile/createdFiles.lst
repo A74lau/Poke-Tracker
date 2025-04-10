@@ -1,0 +1,3 @@
+com\pokemon\controller\PokemonCardController.class
+com\pokemon\PokemonCardsApplication.class
+com\pokemon\service\PokemonCardService.class
