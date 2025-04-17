@@ -6,7 +6,7 @@
 <body>
     <div th:fragment="content">
         <div class="text-center mb-4">
-            <img th:if="${set.symbol}" th:src="${set.symbol}" style="max-height: 100px;" th:alt="${set.name}">
+            <img th:if="${set.symbol}" th:src="${set.symbol + '.png'}" style="max-height: 100px;" th:alt="${set.name}">
             <h1 th:text="${set.name}">Set Name</h1>
             <p class="text-muted">
                 <span th:text="'Total Cards: ' + ${set.cardCount}">Card Count</span>
@@ -17,7 +17,7 @@
             <div th:each="card : ${set.cards}" class="pokemon-card">
                 <a th:href="@{/card/{setId}/{cardNumber}(setId=${set.id},cardNumber=${card.localId})}" class="text-decoration-none">
                     <div class="card">
-                        <img th:if="${card.image}" th:src="${card.image}" class="card-img-top" th:alt="${card.name}">
+                        <img th:if="${card.image}" th:src="${card.image + '/high.webp'}" class="card-img-top" th:alt="${card.name}">
                         <div class="card-body">
                             <h5 class="card-title" th:text="${card.name}">Card Name</h5>
                             <p class="card-text">

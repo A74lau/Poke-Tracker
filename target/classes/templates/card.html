@@ -7,7 +7,7 @@
     <div th:fragment="content">
         <div class="row">
             <div class="col-md-6">
-                <img th:if="${card.image}" th:src="${card.image}" class="img-fluid rounded" th:alt="${card.name}">
+                <img th:if="${card.image}" th:src="${card.image + '/high.webp'}" class="img-fluid rounded" th:alt="${card.name}">
             </div>
             <div class="col-md-6">
                 <h1 th:text="${card.name}">Card Name</h1>

@@ -2,46 +2,126 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::title}, ~{::content})}">
 <head>
     <title th:text="${card.name + ' - Pokemon Cards'}">Card Name - Pokemon Cards</title>
+    <style>
+        .card-detail-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+        .card-image-container {
+            position: relative;
+            perspective: 1000px;
+            transition: transform 0.3s ease;
+        }
+        .card-image-container:hover {
+            transform: translateY(-10px);
+        }
+        .card-image {
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .card-image:hover {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .card-details {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        .card-title {
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .detail-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        .detail-value {
+            color: #2c3e50;
+        }
+        .attacks-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .attack-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        .attack-item:hover {
+            transform: translateX(5px);
+        }
+        .attack-name {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        .attack-damage {
+            color: #3498db;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
-    <div th:fragment="content">
-        <div class="row">
-            <div class="col-md-6">
-                <img th:if="${card.image}" th:src="${card.image}" class="img-fluid rounded" th:alt="${card.name}">
-            </div>
-            <div class="col-md-6">
-                <h1 th:text="${card.name}">Card Name</h1>
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Card Details</h5>
-                        <dl class="row">
-                            <dt class="col-sm-4">Number</dt>
-                            <dd class="col-sm-8" th:text="${card.localId}">Card Number</dd>
-                            
-                            <dt class="col-sm-4">Rarity</dt>
-                            <dd class="col-sm-8" th:text="${card.rarity}">Rarity</dd>
-                            
-                            <dt class="col-sm-4" th:if="${card.hp}">HP</dt>
-                            <dd class="col-sm-8" th:if="${card.hp}" th:text="${card.hp}">HP</dd>
-                            
-                            <dt class="col-sm-4" th:if="${card.types}">Types</dt>
-                            <dd class="col-sm-8" th:if="${card.types}" th:text="${#strings.listJoin(card.types, ', ')}">Types</dd>
-                            
-                            <dt class="col-sm-4" th:if="${card.illustrator}">Illustrator</dt>
-                            <dd class="col-sm-8" th:if="${card.illustrator}" th:text="${card.illustrator}">Illustrator</dd>
-                        </dl>
+    <div th:fragment="content" class="card-detail-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-image-container">
+                        <img th:if="${card.image}" th:src="${card.image + '/high.webp'}" 
+                             class="card-image img-fluid" th:alt="${card.name}">
                     </div>
                 </div>
-                
-                <div class="card mt-3" th:if="${card.attacks}">
-                    <div class="card-body">
+                <div class="col-md-6">
+                    <div class="card-details">
+                        <h1 class="card-title" th:text="${card.name}">Card Name</h1>
+                        <div class="detail-item">
+                            <span class="detail-label">Number:</span>
+                            <span class="detail-value" th:text="${card.localId}">Card Number</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rarity:</span>
+                            <span class="detail-value" th:text="${card.rarity}">Rarity</span>
+                        </div>
+                        <div class="detail-item" th:if="${card.hp}">
+                            <span class="detail-label">HP:</span>
+                            <span class="detail-value" th:text="${card.hp}">HP</span>
+                        </div>
+                        <div class="detail-item" th:if="${card.types}">
+                            <span class="detail-label">Types:</span>
+                            <span class="detail-value" th:text="${#strings.listJoin(card.types, ', ')}">Types</span>
+                        </div>
+                        <div class="detail-item" th:if="${card.illustrator}">
+                            <span class="detail-label">Illustrator:</span>
+                            <span class="detail-value" th:text="${card.illustrator}">Illustrator</span>
+                        </div>
+                    </div>
+                    
+                    <div class="attacks-section" th:if="${card.attacks}">
                         <h5 class="card-title">Attacks</h5>
-                        <div th:each="attack : ${card.attacks}" class="mb-3">
-                            <h6 th:text="${attack.name}">Attack Name</h6>
+                        <div th:each="attack : ${card.attacks}" class="attack-item">
+                            <h6 class="attack-name" th:text="${attack.name}">Attack Name</h6>
                             <p class="mb-1">
-                                <small class="text-muted" th:text="'Damage: ' + ${attack.damage}">Damage</small>
+                                <span class="attack-damage" th:text="'Damage: ' + ${attack.damage}">Damage</span>
                             </p>
-                            <p th:text="${attack.effect}">Effect</p>
+                            <p class="mb-0" th:text="${attack.effect}">Effect</p>
                         </div>
                     </div>
                 </div>
