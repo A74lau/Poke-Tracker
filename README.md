@@ -104,10 +104,6 @@ If the API returns `https://assets.tcgdex.net/en/swsh/swsh3/136/` as the base UR
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Acknowledgments
 
 - TCGdex API for providing Pokemon card data
